@@ -3,6 +3,8 @@
 --Runs single files, or projects
 --Runs: lua, c/c++, py, java, asm, html(Opens in browser)
 
+print("Plugin loaded")
+
 function main(mode, fileDir)
     --mode 1: runs the single file
     --mode 2: runs the whole project
@@ -42,6 +44,15 @@ end
 function fileType(path)
     return path:match("%.([^.]+)$")
 end
+
+
+vim.api.nvim_create_user_command(
+    "trun",
+    function()
+        print("Test trun command")
+    end,
+    { nargs = 0 }
+)
 
 vim.keymap.set('n', '<F5>', function()
     local fileDir = vim.fn.expand('%')
