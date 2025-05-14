@@ -47,7 +47,7 @@ end
 
 
 vim.api.nvim_create_user_command(
-    "trun",
+    "Trun",
     function()
         print("Test trun command")
     end,
