@@ -7,20 +7,20 @@ function main(mode, fileDir)
     --mode 2: runs the whole project
     --mode 3: runs the first line of the source file
     if (mode == "1") then
-        fileType = fileType(fileDir)
-        if (fileType == "lua") then
+        fileLang = getFileType(fileDir)
+        if (fileLang == "lua") then
             os.execute("kitty --title 'lua' bash -c 'lua "..fileDir.."; exec bash' &")
-        elseif (fileType == "c") then
+        elseif (fileLang == "c") then
             os.execute("kitty --title 'c' bash -c 'gcc -o temp/temp "..fileDir.." && ./temp/temp; exec bash' &")
-        elseif (fileType == "cpp") then
+        elseif (fileLang == "cpp") then
             os.execute("kitty --title 'cpp' bash -c 'g++ -o temp/temp "..fileDir.." && ./temp/temp; exec bash' &")
-        elseif (fileType == "py") then
+        elseif (fileLang == "py") then
             os.execute("kitty --title 'py' bash -c 'python "..fileDir.."; exec bash' &")
-        elseif (fileType == "java") then
+        elseif (fileLang == "java") then
             os.execute("kitty --title 'java' bash -c 'java "..fileDir.."; exec bash' &")
-        elseif (fileType == "asm") then
+        elseif (fileLang == "asm") then
             os.execute("kitty --title 'asm' bash -c 'nasm -felf64 "..fileDir.." && ld temp.o -o temp && ./temp; exec bash' &")
-        elseif (fileType == "html") then
+        elseif (fileLang == "html") then
             os.execute("firefox "..fileDir.." &")
         else
             print("File type not supported")
@@ -29,8 +29,8 @@ function main(mode, fileDir)
     elseif (mode == "2") then
         print("Mode still in production")
     elseif (mode == "3") then
-        file = io.open(fileDir, "r")
-        io.input(file)
+        currentFile = io.open(fileDir, "r")
+        io.input(currentFile)
         firstLine = io.read()
         command = firstLine.gsub(firstLine, ".*RC:%s?", "")
         os.execute("kitty --title 'RC' bash -c '"..command.."; exec bash' &")
@@ -38,7 +38,7 @@ function main(mode, fileDir)
     return 0
 end
 
-function fileType(path)
+function getFileType(path)
     return path:match("%.([^.]+)$")
 end
 
