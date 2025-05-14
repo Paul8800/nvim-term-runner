@@ -49,14 +49,10 @@ end
 vim.api.nvim_create_user_command(
     "Trun",
     function()
-        print("Test trun command")
+        local fileDir = vim.fn.expand('%')
+        local mode = "1"
+
+        main(mode, fileDir)
     end,
     { nargs = 0 }
 )
-
-vim.keymap.set('n', '<F5>', function()
-    local fileDir = vim.fn.expand('%')
-    local mode = "1"
-    
-    main(mode, fileDir)
-end)
