@@ -49,6 +49,15 @@ vim.api.nvim_create_user_command(
         local fileDir = vim.fn.expand('%')
         local mode = "1"
 
+        currentFile = io.open(fileDir, "r")
+        io.input(currentFile)
+        firstLine = io.read()
+        check = firstLine.gsub(firstLine, ".*RC:?", "")
+        if string.find(string.lower(check), "rc:") then
+            mode = "3"
+        end
+
+
         main(mode, fileDir)
     end,
     { nargs = 0 }
