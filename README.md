@@ -14,5 +14,6 @@
 - C/C++
 - Python
 - Java
+- C#
 - Assembly (NASM)
 - HTML (In Browser)

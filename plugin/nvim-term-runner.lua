@@ -18,6 +18,9 @@ function main(mode, fileDir)
             os.execute("kitty --title 'py' bash -c 'python "..fileDir.."; exec bash' &")
         elseif (fileLang == "java") then
             os.execute("kitty --title 'java' bash -c 'java "..fileDir.."; exec bash' &")
+        elseif (fileLang == "cs") then
+            os.execute("kitty --title 'java' bash -c 'dotnet new console -o tempRun --use-program-main --force > /dev/null && cp "..fileDir.." tempRun/Program.cs && dotnet run --project tempRun && rm -rf
+ tempRun; exec bash' &")
         elseif (fileLang == "asm") then
             os.execute("kitty --title 'asm' bash -c 'nasm -felf64 "..fileDir.." && ld temp.o -o temp && ./temp; exec bash' &")
         elseif (fileLang == "html") then
