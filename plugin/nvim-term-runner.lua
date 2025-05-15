@@ -52,8 +52,7 @@ vim.api.nvim_create_user_command(
         currentFile = io.open(fileDir, "r")
         io.input(currentFile)
         firstLine = io.read()
-        check = firstLine.gsub(firstLine, ".*RC:?", "")
-        if string.find(string.lower(check), "rc:") then
+        if string.find(string.lower(firstLine), "rc:") then
             mode = "3"
         end
 
