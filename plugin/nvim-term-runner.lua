@@ -2,7 +2,7 @@
 --
 --Runs single files, or projects
 --Runs: lua, c/c++, py, java, asm, html(Opens in browser)
-function main(mode, fileDir)
+function main(mode, fileDir, currentFileName)
     --mode 1: runs the single file
     --mode 2: runs the whole project
     --mode 3: runs the first line of the source file
@@ -17,7 +17,7 @@ function main(mode, fileDir)
         elseif (fileLang == "py") then
             os.execute("kitty --title 'py' bash -c 'python "..fileDir.."; exec bash' &")
         elseif (fileLang == "java") then
-            os.execute("kitty --title 'java' bash -c 'java "..fileDir.."; exec bash' &")
+            os.execute("kitty --title 'java' bash -c 'javac "..fileDir.." && java "..currentFileName.."; exec bash' &")
         elseif (fileLang == "cs") then
             os.execute("kitty --title 'java' bash -c 'dotnet new console -o tempRun --use-program-main --force > /dev/null && cp "..fileDir.." tempRun/Program.cs && dotnet run --project tempRun && rm -rf tempRun; exec bash' &")
         elseif (fileLang == "asm") then
@@ -49,6 +49,7 @@ vim.api.nvim_create_user_command(
     "Trun",
     function()
         local fileDir = vim.fn.expand('%')
+        local fileName = fileDir.gsub(currentFileName, ".*", "([^/]+)%.%w+$")
         local mode = "1"
 
         currentFile = io.open(fileDir, "r")
@@ -59,7 +60,7 @@ vim.api.nvim_create_user_command(
         end
 
 
-        main(mode, fileDir)
+        main(mode, fileDir, currentFileName)
     end,
     { nargs = 0 }
 )
