@@ -49,7 +49,7 @@ vim.api.nvim_create_user_command(
     "Trun",
     function()
         local fileDir = vim.fn.expand('%')
-        local fileName = fileDir.gsub(currentFileName, ".*", "([^/]+)%.%w+$")
+        local fileName = fileDir:match("([^/]+)%.%w+$")
         local mode = "1"
 
         currentFile = io.open(fileDir, "r")
