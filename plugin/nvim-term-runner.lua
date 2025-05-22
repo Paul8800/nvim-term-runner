@@ -36,6 +36,7 @@ function main(mode, fileDir, currentFileName)
         firstLine = io.read()
         if string.find(string.lower(firstLine), "%") then
             firstLine = firstLine.gsub(firstLine, "%", fileDir)
+        end
         command = firstLine.gsub(firstLine, ".*RC:%s?", "")
         os.execute("kitty --title 'RC' bash -c '"..command.."; exec bash' &")
     end
