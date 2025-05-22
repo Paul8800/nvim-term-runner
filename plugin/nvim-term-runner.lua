@@ -19,7 +19,7 @@ function main(mode, fileDir, currentFileName)
         elseif (fileLang == "java") then
             os.execute("kitty --title 'java' bash -c 'javac "..fileDir.." && java "..currentFileName.."; exec bash' &")
         elseif (fileLang == "cs") then
-            os.execute("kitty --title 'java' bash -c 'dotnet new console -o tempRun --use-program-main --force > /dev/null && cp "..fileDir.." tempRun/Program.cs && dotnet run --project tempRun && rm -rf tempRun; exec bash' &")
+            os.execute("kitty --title 'cs' bash -c 'dotnet new console -o tempRun --use-program-main --force > /dev/null && cp "..fileDir.." tempRun/Program.cs && dotnet run --project tempRun && rm -rf tempRun; exec bash' &")
         elseif (fileLang == "asm") then
             os.execute("kitty --title 'asm' bash -c 'nasm -felf64 "..fileDir.." && ld temp.o -o temp && ./temp; exec bash' &")
         elseif (fileLang == "html") then
@@ -34,6 +34,8 @@ function main(mode, fileDir, currentFileName)
         currentFile = io.open(fileDir, "r")
         io.input(currentFile)
         firstLine = io.read()
+        if string.find(string.lower(firstLine), "%") then
+            firstLine = firstLine.gsub(firstLine, "%", fileDir)
         command = firstLine.gsub(firstLine, ".*RC:%s?", "")
         os.execute("kitty --title 'RC' bash -c '"..command.."; exec bash' &")
     end
